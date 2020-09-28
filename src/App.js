@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { createContext, useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
+import FakeData from '../src/components/FakeData/FakeData.jsx'
+// import TimeLineItem from './components/TimeLineItem/TimeLineItem';
+import TimeLine from './components/TimeLine/TimeLine';
+ 
+export const timeLineContext = createContext();
 function App() {
+  const [timeLine , setTimeLine] = useState([]);
+    useEffect(() =>{
+      const fakeData = FakeData;
+      setTimeLine(fakeData)
+    },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <timeLineContext.Provider value={[timeLine , setTimeLine]}>
+        <div className="text-center">
+            <h1 style={{padding:'50px 0'}}>My Blog TimeLine</h1>
+            <TimeLine></TimeLine>
+            <div className='text-center' style={{height:'50px', background:'#333333' , fontSize:'20px'}}>
+                <p style={{color:'#ffffff' ,paddingTop:'10px'}}>&copy;sonjoybarmon 2020 || sonjoybarmon19@gmail.com</p>
+            </div>
+        </div>
+      </timeLineContext.Provider>
   );
 }
 
